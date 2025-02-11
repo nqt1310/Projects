@@ -1,3 +1,6 @@
+FrontEnd Sponsor: Copilot API
+
+
 Ensure Docker is running on your machine.
 
 Navigate to your project directory:
