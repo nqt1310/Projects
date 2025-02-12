@@ -26,8 +26,20 @@
         }
         .result {
             margin-top: 20px;
-            padding: 10px;
+            padding: 20px;
             border: 2px solid #d32f2f; /* MB Bank red */
+            border-radius: 8px;
+            text-align: left;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .term {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .details {
+            font-size: 14px;
         }
         .back-button {
             margin-top: 20px;
@@ -63,26 +75,24 @@
                 const resultDiv = document.createElement('div');
                 resultDiv.className = 'result';
                 // Set background color based on the type column
-                switch (result.type) {
-                    case 'PAYMENT':
+                switch (result.color) {
+                    case 'red':
                         resultDiv.style.backgroundColor = '#0056b3'; // 
                         break;
-                    case 'TRANSFER':
+                    case 'blue':
                         resultDiv.style.backgroundColor = '#d32f2f'; // 
-                        break;
-                    case 'CASH_IN':
-                        resultDiv.style.backgroundColor = '#4caf50'; // 
-                        break;
-                    case 'DEBIT':
-                        resultDiv.style.backgroundColor = '#ff9800'; //
-                        break;
-                    case 'CASH_OUT':
-                        resultDiv.style.backgroundColor = '#9c27b0'; // 
                         break;
                     default:
                         resultDiv.style.backgroundColor = 'white';
                 }
-                resultDiv.innerText = JSON.stringify(result);
+                resultDiv.innerHTML = `
+                    <div class="term">${result.term}</div>
+                    <div class="details">
+                        <p><strong>ID:</strong> ${result.id}</p>
+                        <p><strong>Description:</strong> ${result.description}</p>
+                        <p><strong>Color:</strong> ${result.color}</p>
+                    </div>
+                `;
                 resultDiv.addEventListener('click', () => {
                     focusResult(result);
                 });
@@ -95,7 +105,14 @@
             resultsDiv.innerHTML = '';
             const resultDiv = document.createElement('div');
             resultDiv.className = 'result focused';
-            resultDiv.innerText = JSON.stringify(result);
+            resultDiv.innerHTML = `
+                <div class="term">${result.term}</div>
+                <div class="details">
+                    <p><strong>ID:</strong> ${result.id}</p>
+                    <p><strong>Description:</strong> ${result.description}</p>
+                    <p><strong>Color:</strong> ${result.color}</p>
+                </div>
+            `;
             resultsDiv.appendChild(resultDiv);
 
             const backButton = document.createElement('button');

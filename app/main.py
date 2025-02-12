@@ -28,9 +28,9 @@ def search(q: str = Query(..., min_length=1)):
     cursor = conn.cursor()
     
     query = """
-    SELECT businessterm AS term FROM public.businessglossary WHERE businessterm LIKE %s
+    SELECT 'red' as color,term as type, businessterm AS term FROM public.businessglossary WHERE id||businessterm||description||abbreviation||link_asset LIKE %s
     UNION
-    SELECT dataelement AS term FROM public.datadictionary WHERE dataelement LIKE %s
+    SELECT 'blue' as color, DE as type, dataelement AS term FROM public.datadictionary WHERE id||dataelement||description||legal_cons||"datatype"||pii_status||confidential_level||associated_businessterm LIKE %s
     """
     
     cursor.execute(query, ('%' + q + '%', '%' + q + '%'))
