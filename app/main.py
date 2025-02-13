@@ -28,9 +28,33 @@ def search(q: str = Query(..., min_length=1)):
     cursor = conn.cursor()
     
     query = """
-    SELECT 'red' as color,'term' as type, businessterm AS term FROM public.businessglossary WHERE id||businessterm||description||abbreviation||link_asset LIKE %s
-    UNION
-    SELECT 'blue' as color, 'DE' as type, dataelement AS term FROM public.datadictionary WHERE id||dataelement||description||legal_cons||"datatype"||pii_status||confidential_level||associated_businessterm LIKE %s
+    SELECT  'red' as color,
+            'term' as type, 
+            businessterm AS term,
+            null as de_description, 
+            null as legal_cons, 
+            null as datatype, 
+            null as PII_status, 
+            null as confidential_level, 
+            null as associated_businessterm,
+            description as term_description,
+            abbreviation,
+            link_asset
+    FROM public.businessglossary WHERE id||businessterm||description||abbreviation||link_asset LIKE %s
+    UNION all
+    SELECT  'blue' as color, 
+            'DE' as type, 
+            dataelement AS term,
+            description as de_description, 
+            legal_cons, 
+            datatype, 
+            PII_status, 
+            confidential_level, 
+            associated_businessterm,
+            null as term_description,
+            null as abbreviation,
+            null as link_asset
+    FROM public.datadictionary WHERE id||dataelement||description||legal_cons||"datatype"||pii_status||confidential_level||associated_businessterm LIKE %s
     """
     
     cursor.execute(query, ('%' + q + '%', '%' + q + '%'))

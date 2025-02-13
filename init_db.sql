@@ -9,12 +9,6 @@ CREATE TABLE IF NOT EXISTS public.datadictionary (
     associated_businessterm varchar(20) not null
 );
 
-INSERT INTO public.datadictionary 
-(dataelement, description, legal_cons, datatype, PII_status, confidential_level, associated_businessterm) VALUES
-('PersonalIdentity', 'Số Giấy tờ tùy thân khách hàng', 'Luật Căn cước', 'string', 'Y', 'public', 'PII'),
-('FullName', 'Họ và tên đầy đủ', null, 'string', 'Y', 'confidential', 'PII'),
-('DoB', 'Ngày sinh', null, 'string', 'Y', 'confidential', 'PII')
-;
 CREATE TABLE IF NOT EXISTS public.businessglossary (
     id SERIAL PRIMARY KEY,
     businessterm VARCHAR(255) NOT NULL, 
@@ -22,6 +16,12 @@ CREATE TABLE IF NOT EXISTS public.businessglossary (
     abbreviation varchar(5000) not null,
     link_asset varchar(5000)
 );
+INSERT INTO public.datadictionary 
+(dataelement, description, legal_cons, datatype, PII_status, confidential_level, associated_businessterm) VALUES
+('PersonalIdentity', 'Số Giấy tờ tùy thân khách hàng', 'Luật Căn cước', 'string', 'Y', 'public', 'PII'),
+('FullName', 'Họ và tên đầy đủ', null, 'string', 'Y', 'confidential', 'PII'),
+('DoB', 'Ngày sinh', null, 'string', 'Y', 'confidential', 'PII')
+;
 
 INSERT INTO public.businessglossary (id,businessterm,description,abbreviation,link_asset) VALUES
 (1,'OneID','Dự án hợp nhất khách hàng tập đoàn','OneID','Conf OneID Home'),
