@@ -24,7 +24,7 @@ INSERT INTO public.datadictionary
 ;
 
 INSERT INTO public.businessglossary (id,businessterm,description,abbreviation,link_asset) VALUES
-(1,'OneID','Dự án hợp nhất khách hàng tập đoàn','OneID','Conf OneID Home'),
+(1,'OneID','Dự án hợp nhất khách hàng tập đoàn','OneID','https://www.linkedin.com/in/nqt1310/'),
 (2,'Hệ số thanh toán ngắn hạn','Đánh giá khả năng thanh toán các khoản nợ ngắn hạn bằng tài sản ngắn hạn.','CR' ,null),
 (3,'Hệ số thanh toán nhanh','Đánh giá khả năng thanh toán nợ ngắn hạn bằng tiền và các khoản tương đương tiền.', 'QR',null),
 (4,'Khả năng thanh toán lãi vay',  'Đánh giá khả năng trả lãi vay từ lợi nhuận trước thuế và lãi.', 'TIE', null),

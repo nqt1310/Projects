@@ -29,7 +29,7 @@ def search(q: str = Query(..., min_length=1)):
     
     query = """
     SELECT  'red' as color,
-            'term' as type, 
+            'Business Term' as type, 
             businessterm AS term,
             null as de_description, 
             null as legal_cons, 
@@ -40,10 +40,14 @@ def search(q: str = Query(..., min_length=1)):
             description as term_description,
             abbreviation,
             link_asset
-    FROM public.businessglossary WHERE id||businessterm||description||abbreviation||link_asset LIKE %s
+    FROM public.businessglossary WHERE 
+        businessterm::text ILIKE %s OR
+        description::text ILIKE %s OR
+        abbreviation::text ILIKE %s OR
+        link_asset::text ILIKE %s
     UNION all
     SELECT  'blue' as color, 
-            'DE' as type, 
+            'Data Element' as type, 
             dataelement AS term,
             description as de_description, 
             legal_cons, 
@@ -54,10 +58,17 @@ def search(q: str = Query(..., min_length=1)):
             null as term_description,
             null as abbreviation,
             null as link_asset
-    FROM public.datadictionary WHERE id||dataelement||description||legal_cons||"datatype"||pii_status||confidential_level||associated_businessterm LIKE %s
+    FROM public.datadictionary WHERE 
+        dataelement::text ILIKE %s OR
+        description::text ILIKE %s OR
+        legal_cons::text ILIKE %s OR
+        datatype::text ILIKE %s OR
+        PII_status::text ILIKE %s OR
+        confidential_level::text ILIKE %s OR
+        associated_businessterm::text ILIKE %s
     """
     
-    cursor.execute(query, ('%' + q + '%', '%' + q + '%'))
+    cursor.execute(query, tuple(['%' + q + '%'] * 11))
     results = cursor.fetchall()
     
     cursor.close()

@@ -88,17 +88,19 @@
                 resultDiv.innerHTML = `
                     <div class="term">${result.term}</div>
                     <div class="details">
-                        ${result.type === 'term' ? `
+                        ${result.type === 'Business Term' ? `
                             <p><strong>ID:</strong> ${result.term}</p>
                             <p><strong>Phân loại:</strong> ${result.type}</p>
                             <p><strong>Viết tắt:</strong> ${result.abbreviation}</p>
                             <p><strong>Mô tả:</strong> ${result.term_description}</p>
                         ` : `
-                            <p><strong>ID:</strong> ${result.id}</p>  
-                            <p><strong>DE liên quan:</strong> ${result.link_asset}</p>
+                            <p><strong>ID:</strong> ${result.term}</p>
+                            <p><strong>Kiểu dữ liệu:</strong> ${result.datatype}</p>
+                            <p><strong>Mức độ bảo mật:</strong> ${result.confidential_level}</p>
+                            <p><strong>Mô tả:</strong> ${result.de_description}</p>
                         `}
                     </div>
-                `;
+                `; //Hàm trả default 
                 resultDiv.addEventListener('click', () => {
                     focusResult(result);
                 });
@@ -114,15 +116,19 @@
             resultDiv.innerHTML = `
                 <div class="term">${result.term}</div>
                 <div class="details">
-                    ${result.type === 'DE' ? `
+                    ${result.type === 'Business Term' ? `
                         <p><strong>ID:</strong> ${result.term}</p>
-                        <p><strong>Kiểu dữ liệu:</strong> ${result.datatype}</p>
-                        <p><strong>Mô tả:</strong> ${result.de_description}</p>
+                        <p><strong>Phân loại:</strong> ${result.type}</p>
+                        <p><strong>Viết tắt:</strong> ${result.abbreviation}</p>
+                        <p><strong>Mô tả:</strong> ${result.term_description}</p>
+                        <p><strong>References:</strong> ${result.link_asset}</p>
                     ` : `
                         <p><strong>ID:</strong> ${result.term}</p>
-                        <p><strong>Quy định liên quan:</strong> ${result.legal_cons}</p>
-                        <p><strong>PII:</strong> ${result.PII_status}</p>
+                        <p><strong>Kiểu dữ liệu:</strong> ${result.datatype}</p>
                         <p><strong>Mức độ bảo mật:</strong> ${result.confidential_level}</p>
+                        <p><strong>PII Status:</strong> ${result.PII_status}</p>
+                        <p><strong>Qui định liên quan:</strong> ${result.legal_cons}</p>
+                        <p><strong>Mô tả:</strong> ${result.de_description}</p>
                         <p><strong>Thuật ngữ liên quan:</strong> ${result.associated_businessterm}</p>
                     `}
                 </div>
