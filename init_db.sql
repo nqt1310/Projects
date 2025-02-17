@@ -1,37 +1,47 @@
-CREATE TABLE IF NOT EXISTS public.datadictionary (
-    id SERIAL PRIMARY KEY,
-    dataelement VARCHAR(255) NOT NULL, 
-    description varchar(255) not null,
-    legal_cons varchar(5000),
-    datatype varchar(5000) not null,
-    PII_status varchar(5) not null,
-    confidential_level varchar(100) not null,
-    associated_businessterm varchar(20) not null
+CREATE TABLE IF NOT EXISTS PUBLIC.DATADICTIONARY (
+    ID SERIAL PRIMARY KEY,
+    DATAELEMENT VARCHAR(255) NOT NULL, 
+    DESCRIPTION VARCHAR(255) NOT NULL,
+    LEGAL_CONS VARCHAR(5000),
+    DATATYPE VARCHAR(5000) NOT NULL,
+    PII_STATUS VARCHAR(5) NOT NULL,
+    CONFIDENTIAL_LEVEL VARCHAR(100) NOT NULL,
+    ASSOCIATED_BUSINESSTERM VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS public.businessglossary (
-    id SERIAL PRIMARY KEY,
-    businessterm VARCHAR(255) NOT NULL, 
-    description varchar(255) not null,
-    abbreviation varchar(5000) not null,
-    link_asset varchar(5000)
+CREATE TABLE IF NOT EXISTS PUBLIC.BUSINESSGLOSSARY (
+    ID SERIAL PRIMARY KEY,
+    BUSINESSTERM VARCHAR(255) NOT NULL, 
+    DESCRIPTION VARCHAR(255) NOT NULL,
+    ABBREVIATION VARCHAR(5000) NOT NULL,
+    LINK_ASSET VARCHAR(5000)
 );
-INSERT INTO public.datadictionary 
-(dataelement, description, legal_cons, datatype, PII_status, confidential_level, associated_businessterm) VALUES
-('PersonalIdentity', 'Số Giấy tờ tùy thân khách hàng', 'Luật Căn cước', 'string', 'Y', 'public', 'PII'),
-('FullName', 'Họ và tên đầy đủ', null, 'string', 'Y', 'confidential', 'PII'),
-('DoB', 'Ngày sinh', null, 'string', 'Y', 'confidential', 'PII')
-;
 
-INSERT INTO public.businessglossary (id,businessterm,description,abbreviation,link_asset) VALUES
-(1,'OneID','Dự án hợp nhất khách hàng tập đoàn','OneID','https://www.linkedin.com/in/nqt1310/'),
-(2,'Hệ số thanh toán ngắn hạn','Đánh giá khả năng thanh toán các khoản nợ ngắn hạn bằng tài sản ngắn hạn.','CR' ,null),
-(3,'Hệ số thanh toán nhanh','Đánh giá khả năng thanh toán nợ ngắn hạn bằng tiền và các khoản tương đương tiền.', 'QR',null),
-(4,'Khả năng thanh toán lãi vay',  'Đánh giá khả năng trả lãi vay từ lợi nhuận trước thuế và lãi.', 'TIE', null),
-(5,'Hệ số tự tài trợ', 'Đánh giá mức độ tự chủ về tài chính của doanh nghiệp.','DER',  null),
-(6,'Hệ số đòn bẩy tài chính','Thể hiện mối quan hệ giữa nguồn vốn vay và vốn chủ sở hữu.', 'FLR',  null ),
-(7,'Tỷ suất lợi nhuận trên doanh thu','Đánh giá khả năng sinh lời từ doanh thu.', 'ROS',  null),
-(8,'Tỷ suất lợi nhuận trên tài sản','Đánh giá khả năng sinh lời từ tổng tài sản.', 'ROA',  null),
-(9,'Tỷ suất lợi nhuận trên vốn chủ sở hữu', 'Đánh giá khả năng sinh lời từ vốn chủ sở hữu.','ROE',  null),
-(10,'Thông tin định danh khách hàng','Các thông tin GTTT, Giới tính, Địa chỉ, Họ tên, SĐT, Email','PII',null)
-;
+CREATE TABLE IF NOT EXISTS PUBLIC.TECHNICALDATASTORAGE (
+    ID SERIAL PRIMARY KEY,
+    DATAELEMENT VARCHAR(255),
+    TABLE VARCHAR(255) NOT NULL, 
+    COLUMN VARCHAR(255) NOT NULL,
+    SCHEMA VARCHAR(255) NOT NULL,
+    DATATYPE VARCHAR(255) NOT NULL,
+    DATAMAPPING VARCHAR(1000),
+    OWNER VARCHAR(255)
+);
+
+INSERT INTO PUBLIC.DATADICTIONARY 
+(DATAELEMENT, DESCRIPTION, LEGAL_CONS, DATATYPE, PII_STATUS, CONFIDENTIAL_LEVEL, ASSOCIATED_BUSINESSTERM) VALUES
+('PERSONALIDENTITY', 'SỐ GIẤY TỜ TÙY THÂN KHÁCH HÀNG', 'LUẬT CĂN CƯỚC', 'STRING', 'Y', 'PUBLIC', 'PII'),
+('FULLNAME', 'HỌ VÀ TÊN ĐẦY ĐỦ', NULL, 'STRING', 'Y', 'CONFIDENTIAL', 'PII'),
+('DOB', 'NGÀY SINH', NULL, 'STRING', 'Y', 'CONFIDENTIAL', 'PII');
+
+INSERT INTO PUBLIC.BUSINESSGLOSSARY (ID, BUSINESSTERM, DESCRIPTION, ABBREVIATION, LINK_ASSET) VALUES
+(1, 'ONEID', 'DỰ ÁN HỢP NHẤT KHÁCH HÀNG TẬP ĐOÀN', 'ONEID', 'HTTPS://WWW.LINKEDIN.COM/IN/NQT1310/'),
+(2, 'HỆ SỐ THANH TOÁN NGẮN HẠN', 'ĐÁNH GIÁ KHẢ NĂNG THANH TOÁN CÁC KHOẢN NỢ NGẮN HẠN BẰNG TÀI SẢN NGẮN HẠN.', 'CR', NULL),
+(3, 'HỆ SỐ THANH TOÁN NHANH', 'ĐÁNH GIÁ KHẢ NĂNG THANH TOÁN NỢ NGẮN HẠN BẰNG TIỀN VÀ CÁC KHOẢN TƯƠNG ĐƯƠNG TIỀN.', 'QR', NULL),
+(4, 'KHẢ NĂNG THANH TOÁN LÃI VAY', 'ĐÁNH GIÁ KHẢ NĂNG TRẢ LÃI VAY TỪ LỢI NHUẬN TRƯỚC THUẾ VÀ LÃI.', 'TIE', NULL),
+(5, 'HỆ SỐ TỰ TÀI TRỢ', 'ĐÁNH GIÁ MỨC ĐỘ TỰ CHỦ VỀ TÀI CHÍNH CỦA DOANH NGHIỆP.', 'DER', NULL),
+(6, 'HỆ SỐ ĐÒN BẨY TÀI CHÍNH', 'THỂ HIỆN MỐI QUAN HỆ GIỮA NGUỒN VỐN VAY VÀ VỐN CHỦ SỞ HỮU.', 'FLR', NULL),
+(7, 'TỶ SUẤT LỢI NHUẬN TRÊN DOANH THU', 'ĐÁNH GIÁ KHẢ NĂNG SINH LỜI TỪ DOANH THU.', 'ROS', NULL),
+(8, 'TỶ SUẤT LỢI NHUẬN TRÊN TÀI SẢN', 'ĐÁNH GIÁ KHẢ NĂNG SINH LỜI TỪ TỔNG TÀI SẢN.', 'ROA', NULL),
+(9, 'TỶ SUẤT LỢI NHUẬN TRÊN VỐN CHỦ SỞ HỮU', 'ĐÁNH GIÁ KHẢ NĂNG SINH LỜI TỪ VỐN CHỦ SỞ HỮU.', 'ROE', NULL),
+(10, 'THÔNG TIN ĐỊNH DANH KHÁCH HÀNG', 'CÁC THÔNG TIN GTTT, GIỚI TÍNH, ĐỊA CHỈ, HỌ TÊN, SĐT, EMAIL', 'PII', NULL);

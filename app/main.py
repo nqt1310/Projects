@@ -6,7 +6,10 @@ from psycopg2.extras import RealDictCursor
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 import os
+import re
 
+def remove_excess_whitespace(input_string):
+    return re.sub(r'\s+', '', input_string).strip()
 app = FastAPI()
 
 # Allow CORS for frontend
@@ -36,7 +39,7 @@ def search(q: str = Query(..., min_length=1)):
             null as datatype, 
             null as PII_status, 
             null as confidential_level, 
-            null as associated_businessterm,
+            null as associated_businessterm,    
             description as term_description,
             abbreviation,
             link_asset
@@ -68,7 +71,7 @@ def search(q: str = Query(..., min_length=1)):
         associated_businessterm::text ILIKE %s
     """
     
-    cursor.execute(query, tuple(['%' + q + '%'] * 11))
+    cursor.execute(query, tuple(['%' + remove_excess_whitespace(q.upper()) + '%'] * 11))
     results = cursor.fetchall()
     
     cursor.close()
