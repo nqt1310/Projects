@@ -71,7 +71,7 @@ def search(q: str = Query(..., min_length=1)):
         associated_businessterm::text ILIKE %s
     """
     
-    cursor.execute(query, tuple(['%' + remove_excess_whitespace(q.upper()) + '%'] * 11))
+    cursor.execute(query, tuple(['%' + q + '%'] * 11))
     results = cursor.fetchall()
     
     cursor.close()
